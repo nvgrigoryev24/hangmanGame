@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Indie+Flower&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Amatic+SC|Caveat&display=swap");
 
 * {
   box-sizing: border-box;
@@ -9,11 +9,10 @@
 body {
   background-color: #34495e;
   color: #fff;
-  font-family: "Indie Flower", cursive;
+  font-family: "Amatic SC", cursive;
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 80vh;
   margin: 0;
   overflow: hidden;
 }
@@ -30,7 +29,14 @@ body {
 }
 
 h1 {
-  margin: 20px 0px 0px;
+  margin: 10px 0px 0px;
+  font-size: 70px;
+  line-height: 1;
+}
+
+.intro {
+  font-size: 30px;
+  margin-bottom: 30px;
 }
 
 .game-container {
@@ -60,9 +66,22 @@ h1 {
 .word {
   display: flex;
   position: absolute;
-  bottom: 10px;
+  bottom: 40px;
   left: 50%;
   transform: translateX(-50%);
+}
+
+.guess {
+  display: flex;
+  position: absolute;
+  bottom: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
 }
 
 .letter {
@@ -121,10 +140,13 @@ h1 {
   padding: 20px 20px;
   position: absolute;
   line-height: 1;
-  bottom: -56px;
+  bottom: -60px;
   transition: transform 0.3 ease-in-out;
+}
+.notification-container p {
+  font-size: 20px;
 }
 
 .notification-container.show {
-  transform: translateY(-56px);
+  transform: translateY(-60px);
 }

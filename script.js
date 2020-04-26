@@ -1,5 +1,6 @@
 const
   wordEl = document.getElementById('word'),
+  guessEl = document.getElementById('guess'),
   wrongLettersEl = document.getElementById('wrong-letters'),
   playAgainBtn = document.getElementById('play-button'),
   popup = document.getElementById('popup-container'),
@@ -9,17 +10,33 @@ const
 
 
 // Word Arrays
-const words = ['application', 'programming', 'interface', 'wizard'];
+let obj = [
+  {
+    word: "елка",
+    guess: "Зимой и летом одним цветом"
+  },
+  {
+    word: "замок",
+    guess: "не лает, не кусает, а в дом не пускает"
+  },
+  {
+    word: "огурец",
+    guess: "без окон, без дверей полна горница людей"
+  },
+];
 
-let selectedWord = words[Math.floor(Math.random() * words.length)];
+
+let randomPick = obj[Math.floor(Math.random() * obj.length)];
+
+let answerRandom = randomPick.word;
+let guessRandom = randomPick.guess;
 
 const correctLetters = [];
 const wrongLetters = [];
 
-// Show hidden word
-function displayWord() {
+function displayNewWord() {
   wordEl.innerHTML = `
-  ${selectedWord
+  ${answerRandom
       .split("")
       .map(letter => `
       <span class="letter">
@@ -27,12 +44,16 @@ function displayWord() {
       </span>`)
       .join('')}
   `;
+  guessEl.innerHTML = `${guessRandom}`;
+  console.log(answerRandom);
+
   const innerWord = wordEl.innerText.replace(/\n/g, "");
 
-  if (innerWord === selectedWord) {
+  if (innerWord === answerRandom) {
     finalMessage.innerText = 'Gratz! You won!';
     popup.style.display = "flex";
   }
+
 }
 
 function updateWrongLettersEl() {
@@ -68,10 +89,11 @@ window.addEventListener('keydown', (e) => {
   const key = e.keyCode;
   if (key >= 65 && key <= 90 || key === 219 || key === 221 || key === 186 || key === 222 || key === 220 || key === 188 || key === 190) {
     const letter = e.key;
-    if (selectedWord.includes(letter)) {
+    if (answerRandom.includes(letter)) {
       if (!correctLetters.includes(letter)) {
-        correctLetters.push(letter);
-        displayWord();
+        correctLetters
+          .push(letter);
+        displayNewWord();
         console.log(`Correct Letters: `, correctLetters);
       } else {
         showNotification();
@@ -93,10 +115,21 @@ playAgainBtn.addEventListener('click', () => {
   // Empty arrays
   correctLetters.splice(0);
   wrongLetters.splice(0);
-  selectedWord = words[Math.floor(Math.random() * words.length)];
-  displayWord();
+  randomPick = obj[Math.floor(Math.random() * obj.length)];
+  answerRandom = randomPick.word;
+  guessRandom = randomPick.guess;
+  displayNewWord();
   updateWrongLettersEl();
   popup.style.display = 'none';
 });
 
-displayWord();
+
+
+
+
+
+console.log(`
+Answer is: ${answerRandom}
+Guess is: ${guessRandom}`);
+
+displayNewWord();
